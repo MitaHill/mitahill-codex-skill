@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pragmatic Judgment"
+  short_description: "Prioritize practical outcomes over needless complexity."
+  default_prompt: "Use $pragmatic-judgment to solve this pragmatically and avoid overthinking."
