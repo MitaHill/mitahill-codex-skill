@@ -41,6 +41,20 @@ Avoid:
 
 ---
 
+## Standalone scripts
+
+Put one-off maintenance, migration, data-fix, operational, and developer scripts
+in the project's existing script directory. If the project has no convention,
+create a small `scripts/` directory rather than adding script-only modules to
+the application package.
+
+Keep the script as a thin entry point and reuse the application's existing
+public interfaces. Put code in the application package only when it is actual
+runtime or domain behavior, or when both the application and scripts genuinely
+share it. Do not grow the main program merely to host a standalone script.
+
+---
+
 ## Naming
 
 Use natural names that real developers commonly use.

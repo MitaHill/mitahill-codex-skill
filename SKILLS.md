@@ -57,7 +57,9 @@
 
 | Skill | 触发场景 |
 | --- | --- |
-| `git-commit` | 仅根据已暂存的改动草拟 Conventional Commit 信息；绝不暂存、提交或推送 |
+| `git-workflow` | 所有会修改受 Git 跟踪文件的编码任务，以及暂存、提交、分支、合并、变基、推送、PR 或历史恢复；保护已有改动并在 Git 变更前请求精确授权 |
+| `git-commit` | 仅根据已暂存的改动，按仓库规范或 Conventional Commits 兜底草拟提交信息；绝不暂存、提交或推送 |
+| `git-guardrails-claude-code` | 仅为 Claude Code 安装危险 Git 命令拦截 hook；不约束 Codex |
 
 当前会话已内置 GitHub 相关能力：`github`（仓库、PR、issue 导航）、`gh-address-comments`（处理 PR 审查意见）、`gh-fix-ci`（排查 GitHub Actions），以及 `yeet`（经确认后提交、推送并创建草稿 PR）。无需安装重复的 GitHub CLI 总管 skill。
 

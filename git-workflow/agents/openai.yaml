@@ -1,0 +1,6 @@
+interface:
+  display_name: "Git Workflow"
+  short_description: "Protect work and approve Git mutations"
+  default_prompt: "Use $git-workflow to inspect this repository and carry out the requested Git workflow safely."
+policy:
+  allow_implicit_invocation: true

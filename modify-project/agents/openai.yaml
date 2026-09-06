@@ -1,0 +1,6 @@
+interface:
+  display_name: "Modify Project"
+  short_description: "Make minimal changes to an existing project"
+  default_prompt: "Use $modify-project to make the requested minimal, well-verified change to this project."
+policy:
+  allow_implicit_invocation: false

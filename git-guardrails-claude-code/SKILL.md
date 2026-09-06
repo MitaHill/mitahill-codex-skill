@@ -7,6 +7,9 @@ description: Set up Claude Code hooks to block dangerous git commands (push, res
 
 Sets up a PreToolUse hook that intercepts and blocks dangerous git commands before Claude executes them.
 
+This hook is specific to Claude Code. It does not enforce Codex behavior; use
+the `git-workflow` skill for Codex Git safety and authorization boundaries.
+
 ## What Gets Blocked
 
 - `git push` (all variants including `--force`)

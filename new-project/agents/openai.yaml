@@ -1,0 +1,6 @@
+interface:
+  display_name: "New Project"
+  short_description: "Create a minimal Django project"
+  default_prompt: "Use $new-project to create the requested minimal Django project from an empty directory."
+policy:
+  allow_implicit_invocation: false

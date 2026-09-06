@@ -1,4 +1,4 @@
 interface:
   display_name: "git-commit"
-  short_description: "Draft a commit message from staged changes"
-  default_prompt: "Use $git-commit to draft a Conventional Commit message from the current staged changes."
+  short_description: "Draft a repo-compatible staged commit message"
+  default_prompt: "Use $git-commit to draft a repository-compatible commit message from the current staged changes."
