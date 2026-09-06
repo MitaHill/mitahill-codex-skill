@@ -79,6 +79,22 @@ Present the two reports under `## Standards` and `## Spec` headings, verbatim or
 
 End with a one-line summary: total findings per axis, and the worst issue _within each axis_ (if any). Don't pick a single winner across axes — that's the reranking the separation exists to prevent.
 
+### 6. Check implementation evidence
+
+Without rerunning an unrelated test matrix, check the task's available evidence:
+
+- If the change adds a module, integration, or dependency, confirm that a
+  `reuse-first` decision considered existing code, platform capabilities, and
+  credible maintained alternatives. Flag a missing decision or an unexplained
+  high-impact dependency; do not insist on a standalone document.
+- If the diff changes graphical behavior, confirm that `runtime-verification`
+  evidence names the real application or URL, exercised flows, diagnostics, and
+  any unverified gaps. Automated tests or a successful build alone do not count
+  as graphical verification.
+
+Report this separately under `## Verification evidence`. Absence of evidence is
+an explicit gap, not proof that the implementation is wrong.
+
 ## Why two axes
 
 A change can pass one axis and fail the other:

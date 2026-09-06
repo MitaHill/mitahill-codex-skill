@@ -1,0 +1,6 @@
+interface:
+  display_name: "Runtime Verification"
+  short_description: "Verify real behavior, including graphical UI"
+  default_prompt: "Use $runtime-verification to verify this change in its real runtime and interact with any graphical interface."
+policy:
+  allow_implicit_invocation: true

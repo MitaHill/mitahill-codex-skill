@@ -91,11 +91,23 @@ Behaviour:
 
 Put the switcher in a single shared component so both sub-shapes can reuse it. Locate it wherever shared UI lives in the project.
 
-### 5. Hand it over
+### 5. Verify it in the browser
+
+Before handing the prototype over, use `runtime-verification` to open the actual
+route and inspect every variant with the available browser or Computer Use
+capability. Confirm that the switcher works by mouse and keyboard, URL state
+survives reload, variants render without console errors, and the layouts are
+usable at the viewports materially affected by the design. Capture representative
+screenshots so the user is choosing among variants that actually run.
+
+If the route cannot be launched or controlled, report the unverified variants
+and blocker instead of presenting them as tested.
+
+### 6. Hand it over
 
 Surface the URL (and the `?variant=` keys). The user will flip through whenever they get to it. The interesting feedback is usually **"I want the header from B with the sidebar from C"** — that's the actual design they want.
 
-### 6. Capture the answer and clean up
+### 7. Capture the answer and clean up
 
 Once a variant has won, write down which one and why (commit message, ADR, issue, or a `NOTES.md` next to the prototype if running AFK and the user hasn't responded yet). Then:
 

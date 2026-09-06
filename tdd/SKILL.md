@@ -17,6 +17,11 @@ description: Test-driven development. Use when the user wants to build features 
 
 See [tests.md](tests.md) for examples and [mocking.md](mocking.md) for mocking guidelines.
 
+Automated tests and runtime verification answer different questions. For a
+graphical application, use this skill to create durable behavioral regression
+coverage and use `runtime-verification` to operate the real browser, simulator,
+or application. Neither is evidence that the other passed.
+
 ## Anti-Pattern: Horizontal Slices
 
 **DO NOT write all tests first, then all implementation.** This is "horizontal slicing" - treating RED as "write all tests" and GREEN as "write all code."
@@ -109,3 +114,8 @@ After all tests pass, look for [refactor candidates](refactoring.md):
 [ ] Code is minimal for this test
 [ ] No speculative features added
 ```
+
+Before declaring a graphical change complete, run the relevant automated suite
+and the live graphical flow. If Computer Use or the graphical runtime is
+unavailable, report that gap instead of treating the automated test as a visual
+or interaction pass.

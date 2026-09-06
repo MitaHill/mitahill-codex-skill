@@ -16,6 +16,8 @@
 | --- | --- |
 | `implement` | 已有 PRD 或 issue，需要实施 |
 | `modify-project` | 修改已有项目，要求最小、稳健改动 |
+| `reuse-first` | 新增模块、集成或通用能力前，搜索并评估项目内、标准库、包仓库和 GitHub 的可复用方案，再决定引入依赖或编写小模块 |
+| `runtime-verification` | 按 Web、桌面、移动端、CLI 或后端选择真实运行验证；图形化程序必须使用浏览器、模拟器或 Computer Use |
 | `new-project` | 从空目录创建 Django 项目 |
 | `prototype` | 用一次性原型验证设计或状态模型 |
 | `tdd` | 用户明确要求测试先行或集成测试 |
@@ -73,7 +75,8 @@
 
 ## 使用规则
 
-- 同一任务默认只启用一个主 skill；仅在任务天然跨阶段时组合，例如 `pragmatic-judgment` → `modify-project` → `review`。
+- 同一阶段默认只启用一个主 skill；任务天然跨阶段时组合。例如新增图形模块可按 `reuse-first` → `modify-project` → `runtime-verification` → `review` 执行。
 - `ponytail` 约束实现复杂度；`pragmatic-judgment` 约束问题求解范围。两者可同时使用。
+- `reuse-first` 约束方案选择，不代表一律引入第三方依赖；`runtime-verification` 约束完成证据，不替代自动化测试。
 - `grilling`、`review`、`improve-codebase-architecture` 属于高投入流程，不作为日常小改动的默认步骤。
 - 任何第三方 skill 更新或新增前，先审阅其 `SKILL.md` 以及附带脚本。

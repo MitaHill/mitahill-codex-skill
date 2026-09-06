@@ -1,0 +1,6 @@
+interface:
+  display_name: "Reuse First"
+  short_description: "Research before adding modules or dependencies"
+  default_prompt: "Use $reuse-first to evaluate reusable options before implementing this new capability."
+policy:
+  allow_implicit_invocation: true

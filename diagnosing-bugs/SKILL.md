@@ -15,18 +15,24 @@ When exploring the codebase, read `CONTEXT.md` (if it exists) to get a clear men
 
 Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give up.**
 
-### Ways to construct one — try them in roughly this order
+### Ways to construct one
+
+Choose the signal closest to the user's symptom. For a graphical bug, start by
+reproducing it in the real browser, simulator, or application with Computer Use;
+do not postpone the only faithful feedback channel merely because it is visual.
+For non-graphical bugs, prefer the smallest deterministic command or test.
 
 1. **Failing test** at whatever seam reaches the bug — unit, integration, e2e.
 2. **Curl / HTTP script** against a running dev server.
 3. **CLI invocation** with a fixture input, diffing stdout against a known-good snapshot.
-4. **Headless browser script** (Playwright / Puppeteer) — drives the UI, asserts on DOM/console/network.
-5. **Replay a captured trace.** Save a real network request / payload / event log to disk; replay it through the code path in isolation.
-6. **Throwaway harness.** Spin up a minimal subset of the system (one service, mocked deps) that exercises the bug code path with a single function call.
-7. **Property / fuzz loop.** If the bug is "sometimes wrong output", run 1000 random inputs and look for the failure mode.
-8. **Bisection harness.** If the bug appeared between two known states (commit, dataset, version), automate "boot at state X, check, repeat" so you can `git bisect run` it.
-9. **Differential loop.** Run the same input through old-version vs new-version (or two configs) and diff outputs.
-10. **HITL bash script.** Last resort. If a human must click, drive _them_ with `scripts/hitl-loop.template.sh` so the loop is still structured. Captured output feeds back to you.
+4. **Live graphical flow** — use `runtime-verification` and Computer Use to drive the real browser, simulator, or application and capture the exact visual or interaction symptom.
+5. **Headless browser script** (an existing Playwright / Puppeteer setup) — drives the UI and asserts on DOM, console, or network for durable regression coverage.
+6. **Replay a captured trace.** Save a real network request / payload / event log to disk; replay it through the code path in isolation.
+7. **Throwaway harness.** Spin up a minimal subset of the system (one service, mocked deps) that exercises the bug code path with a single function call.
+8. **Property / fuzz loop.** If the bug is "sometimes wrong output", run 1000 random inputs and look for the failure mode.
+9. **Bisection harness.** If the bug appeared between two known states (commit, dataset, version), automate "boot at state X, check, repeat" so you can `git bisect run` it.
+10. **Differential loop.** Run the same input through old-version vs new-version (or two configs) and diff outputs.
+11. **Structured human reproduction.** Use only when the environment cannot expose the required GUI to the agent; give the human exact actions and request a screenshot, recording, logs, or trace with timestamps.
 
 Build the right feedback loop, and the bug is 90% fixed.
 
@@ -50,14 +56,19 @@ Stop and say so explicitly. List what you tried. Ask the user for: (a) access to
 
 ### Completion criterion — a tight loop that goes red
 
-Phase 1 is done when the loop is **tight** and **red-capable**: you can name **one command** — a script path, a test invocation, a curl — that you have **already run at least once** (paste the invocation and its output), and that is:
+Phase 1 is done when the loop is **tight** and **red-capable**. For non-graphical
+behavior, name one command that you have already run and include its output. For
+a graphical bug, provide the repeatable Computer Use path, captured symptom, and
+relevant console, network, or application diagnostics. The loop must be:
 
 - [ ] **Red-capable** — it drives the actual bug code path and asserts the **user's exact symptom**, so it can go red on this bug and green once fixed. Not "runs without erroring" — it must be able to _catch this specific bug_.
 - [ ] **Deterministic** — same verdict every run (flaky bugs: a pinned, high reproduction rate, per above).
 - [ ] **Fast** — seconds, not minutes.
-- [ ] **Agent-runnable** — you can run it unattended; a human in the loop only via `scripts/hitl-loop.template.sh`.
+- [ ] **Agent-runnable when the environment permits** — use live Computer Use for graphical symptoms; rely on structured human reproduction only when the required surface is unavailable.
 
-If you catch yourself reading code to build a theory before this command exists, **stop — jumping straight to a hypothesis is the exact failure this skill prevents.** No red-capable command, no Phase 2.
+If you catch yourself reading code to build a theory before this feedback loop
+exists, stop. No red-capable command or repeatable graphical path means no Phase
+2.
 
 ## Phase 2 — Reproduce + minimise
 
@@ -127,6 +138,7 @@ Required before declaring done:
 
 - [ ] Original repro no longer reproduces (re-run the Phase 1 loop)
 - [ ] Regression test passes (or absence of seam is documented)
+- [ ] Graphical bugs pass the original live flow through `runtime-verification`
 - [ ] All `[DEBUG-...]` instrumentation removed (`grep` the prefix)
 - [ ] Throwaway prototypes deleted (or moved to a clearly-marked debug location)
 - [ ] The hypothesis that turned out correct is stated in the commit / PR message — so the next debugger learns
